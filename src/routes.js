@@ -7,7 +7,6 @@ const AppStack = createStackNavigator();
 import Home from './pages/Home';
 import Tuto from './pages/Tuto';
 import Info from './pages/Info';
-import Fila from './pages/Fila';
 import globalStyles from '../globalStyles';
 
 import { Feather } from '@expo/vector-icons';
@@ -48,16 +47,7 @@ export default function Routes() {
                             </TouchableOpacity>
                             )
                     }}/>
-                <AppStack.Screen name = "Fila" component={Fila} options={{ 
-                        title: 'Fila',
-                        headerRight:()=>(
-                            <TouchableOpacity onPress={()=> ref.current?.navigate('Home')}>
-                                <Feather style={globalStyles.homeIcon} name="home" size={30}/>
-                            </TouchableOpacity>
-                            )
-                    }}/>
             </AppStack.Navigator>
         </NavigationContainer>
     );
 }
-
