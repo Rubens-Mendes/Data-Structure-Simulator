@@ -6,7 +6,7 @@ const AppStack = createStackNavigator();
 
 import Home from './pages/Home';
 import Tuto from './pages/Tuto';
-import LDDE from './pages/LDDE';
+import Info from './pages/Info';
 import Fila from './pages/Fila';
 import globalStyles from '../globalStyles';
 
@@ -40,8 +40,8 @@ export default function Routes() {
                             </TouchableOpacity>
                             )
                     }}/>
-                <AppStack.Screen name = "LDDE" component={LDDE} options={{ 
-                        title: 'LDDE',
+                <AppStack.Screen name = "Info" component={Info} options={{ 
+                        title: 'Info',
                         headerRight:()=>(
                             <TouchableOpacity onPress={()=> ref.current?.navigate('Home')}>
                                 <Feather style={globalStyles.homeIcon} name="home" size={30}/>

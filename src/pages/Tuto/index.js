@@ -13,8 +13,8 @@ export default function Tuto() {
         navigation.goBack();
     }
 
-    function navigateToLDDE(){
-        navigation.navigate('LDDE');
+    function navigateToInfo(){
+        navigation.navigate('Info');
     }
 
     function navigateToFila(){
@@ -35,23 +35,12 @@ export default function Tuto() {
             </View>
 
             <View style ={Styles.helpContainer}>
-                <Text style={Styles.title}>LDDE</Text>
+                <Text style={Styles.title}>Estruturas</Text>
                 <Text style={Styles.subtitle}>
-                    Aprenda conceitos relacionados à Lista Dinâmica Duplamente Encadeada.
+                    Aprenda conceitos relacionados às estruturas que são simuladas no Aplicativo.
                 </Text>
-                <TouchableOpacity style={globalStyles.linkButton} onPress={navigateToLDDE}>
-                    <Text style={globalStyles.linkText}>Ir para LDDE</Text>
-                    <Feather name="arrow-right" size={20} color="#67AAB8" marginRight={15} />
-                </TouchableOpacity>
-            </View>
-
-            <View style ={Styles.helpContainer}>
-                <Text style={Styles.title}>Fila</Text>
-                <Text style={Styles.subtitle}>
-                    Leia sobre uma das estruturas aqui representadas, a Fila Estática Circular.
-                </Text>
-                <TouchableOpacity style={globalStyles.linkButton} onPress={navigateToFila}>
-                    <Text style={globalStyles.linkText}>Ir para Fila</Text>
+                <TouchableOpacity style={globalStyles.linkButton} onPress={navigateToInfo}>
+                    <Text style={globalStyles.linkText}>Seguir para estruturas</Text>
                     <Feather name="arrow-right" size={20} color="#67AAB8" marginRight={15} />
                 </TouchableOpacity>
             </View>
