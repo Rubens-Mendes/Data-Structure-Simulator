@@ -12,11 +12,10 @@ export default StyleSheet.create({
     },
 
     contentContainer: {
-        flex: 1,
+        height: '87%',
         flexDirection: 'column',
         justifyContent: 'flex-start',
         backgroundColor: '#333745',
-        marginBottom:'5%'
     },
 
     imgDesc: {
@@ -31,21 +30,12 @@ export default StyleSheet.create({
         height: "60%",
     },
 
-    subtitle: {
-        fontSize: RFValue(18),
-        paddingBottom: 10,
-        color: '#BCCCC2',
-        textAlign: 'left',
-        fontFamily: "OpenSans-SemiBold",
-        paddingHorizontal: '2%',
-    },
-
     contentText: {
         fontSize: RFValue(16),
         paddingBottom: 10,
         color: '#BCCCC2',
         textAlign: 'left',
         fontFamily: "OpenSans-Regular",
-        paddingHorizontal: '2%',
+        paddingHorizontal: '5%',
     },
 });

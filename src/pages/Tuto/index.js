@@ -17,10 +17,6 @@ export default function Tuto() {
         navigation.navigate('Info');
     }
 
-    function navigateToFila(){
-        navigation.navigate('Fila');
-    }
-
     return(
         <View style = {globalStyles.container}>
             <View style ={Styles.helpContainer}>

@@ -1,9 +1,13 @@
 import React from 'react';
-import {Text, View, SafeAreaView,Image} from 'react-native';
+import {Text, View, SafeAreaView, Image, Dimensions} from 'react-native';
 
 import Styles from './styles';
 
 import Carousel from 'react-native-snap-carousel';
+
+const SLIDER_WIDTH = Dimensions.get('window').width;
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
+const ITEM_HEIGHT = Math.round(ITEM_WIDTH * 3 / 4);
 
 export default class Info extends React.Component {
     constructor(props){
@@ -12,13 +16,11 @@ export default class Info extends React.Component {
           activeIndex:0,
           carouselItems: [
           {
-              title: "Lista Dinâmica Duplamente Encadeada",
-              text: "Esta estrutura,é um tipo de lista onde cada elemento, tem um apontamento para seu sucessor e antecessor, podendo a lista ser nula ou não. Existem 2 nós essenciais para a utilização da estrutura, o inicial e o final.",
+              text: "A lista dinâmica duplamente encadeada,é um tipo de lista onde cada elemento, tem um apontamento para seu sucessor e antecessor, podendo a lista ser nula ou não. Existem 2 nós essenciais para a utilização da estrutura, o inicial e o final.",
               imgSrc: require('../../../assets/LDDE.png'),
           },
           {
-              title: "Fila Estática Circular",
-              text: "Esta é uma estrutura linear, cujas inserções são feitas no final do vetor, e as remoções são feitas no início do mesmo, assim como uma fila convencional.",
+              text: "A fila estática circular, é uma estrutura linear, cujas inserções são feitas no final do vetor, e as remoções são feitas no início do mesmo, assim como uma fila convencional.",
               imgSrc: require('../../../assets/Fila.png'),
           },
         ]
@@ -31,8 +33,7 @@ export default class Info extends React.Component {
             <View style = {Styles.imgContainer}>
                 <Image source={item.imgSrc} style={Styles.imgDesc}></Image>
             </View>
-            <Text style={Styles.subtitle}>{item.title}</Text>
-                <Text style={Styles.contentText}>{item.text}</Text>
+            <Text style={Styles.contentText}>{item.text}</Text>
           </View>
         );
     }
@@ -45,8 +46,8 @@ export default class Info extends React.Component {
                   layout={"default"}
                   ref={ref => this.carousel = ref}
                   data={this.state.carouselItems}
-                  sliderWidth={380}
-                  itemWidth={340}
+                  sliderWidth={SLIDER_WIDTH*0.9}
+                  itemWidth={ITEM_WIDTH * 1.2}
                   renderItem={this._renderItem}
                   onSnapToItem = { index => this.setState({activeIndex:index}) } />
             </View>
