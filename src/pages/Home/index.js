@@ -11,6 +11,10 @@ export default function Home() {
     function navigateToTutorial(){
         navigation.navigate('Tutorial');
     }
+
+    function navigateToSimuLDDE(){
+        navigation.navigate('SimuLDDE');
+    }
     return(
         <View style = {globalStyles.container}>
            <View style = {Styles.actions}>
@@ -18,7 +22,7 @@ export default function Home() {
                 <TouchableOpacity style={Styles.confirmButton} onPress={navigateToTutorial}>
                     <Text style={Styles.actionText}>Preciso de um tutorial</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={Styles.negativeButton}>
+                <TouchableOpacity style={Styles.negativeButton} onPress={navigateToSimuLDDE}>
                     <Text style={Styles.actionText}>Quero partir para a simulação</Text>
                 </TouchableOpacity>
            </View>

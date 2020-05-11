@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { RFValue } from "react-native-responsive-fontsize";
+import Constants from 'expo-constants';
 
 export default StyleSheet.create({
     text: {
@@ -7,7 +8,7 @@ export default StyleSheet.create({
         color: '#BCCCC2',
         textAlign: 'center',
         fontFamily: "OpenSans-SemiBold",
-        paddingVertical: "6%",
+        paddingVertical: "4%",
     },
 
     confirmButton: {
@@ -27,7 +28,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
-        marginBottom: "5%",
+        marginBottom: "4%",
     },
 
     actionText: {
@@ -43,9 +44,8 @@ export default StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor:'#5d6170',
+        backgroundColor:'#2F3340',
         borderRadius: 10,
         height:"auto",
-        opacity: 0.92,
     }
 });

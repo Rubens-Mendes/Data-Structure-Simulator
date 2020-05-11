@@ -7,7 +7,6 @@ import Carousel from 'react-native-snap-carousel';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
-const ITEM_HEIGHT = Math.round(ITEM_WIDTH * 3 / 4);
 
 export default class Info extends React.Component {
     constructor(props){

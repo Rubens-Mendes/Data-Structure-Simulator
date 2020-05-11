@@ -7,6 +7,7 @@ const AppStack = createStackNavigator();
 import Home from './pages/Home';
 import Tuto from './pages/Tuto';
 import Info from './pages/Info';
+import SimuLDDE from './pages/Simulacoes/SimuLDDE'
 import globalStyles from '../globalStyles';
 
 import { Feather } from '@expo/vector-icons';
@@ -41,6 +42,14 @@ export default function Routes() {
                     }}/>
                 <AppStack.Screen name = "Info" component={Info} options={{ 
                         title: 'Info',
+                        headerRight:()=>(
+                            <TouchableOpacity onPress={()=> ref.current?.navigate('Home')}>
+                                <Feather style={globalStyles.homeIcon} name="home" size={30}/>
+                            </TouchableOpacity>
+                            )
+                    }}/>
+                <AppStack.Screen name = "SimuLDDE" component={SimuLDDE} options={{ 
+                        title: 'SimuLDDE',
                         headerRight:()=>(
                             <TouchableOpacity onPress={()=> ref.current?.navigate('Home')}>
                                 <Feather style={globalStyles.homeIcon} name="home" size={30}/>
