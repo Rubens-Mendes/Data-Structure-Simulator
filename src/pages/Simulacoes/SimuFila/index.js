@@ -1,61 +1,75 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
-import { Dropdown } from 'react-native-material-dropdown';
-import { RFValue } from "react-native-responsive-fontsize";
+import {View, Text, TouchableOpacity, TextInput, FlatList} from 'react-native';
+import {ButtonGroup} from 'react-native-elements';
 
-
-import Styles from './styles';
-import globalStyles from '../../../../globalStyles';
-import { useNavigation } from '@react-navigation/native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import Styles from '../styles';
+import No from '../../../../components/No';
 
 export default class simuFila extends React.Component{
     constructor(props){
         super(props);
-        this.state={
-            data: [{
-              label: 'Insere',
-              value: 'Insere',
-            }, 
-            {
-              label: 'Remove',
-              value: 'Remove',
-            }, 
-            {
-              label: 'Busca',
-              value: 'Busca',
-            }],
-            value: '',
-            label: 'Operaç?o'
+        this.state = {
+            selectedIndex: -1,
+            textoStep:"Aguardando Operaç?o...",
         }
+
+        this.updateIndex = this.updateIndex.bind(this)
+        this.operacao = this.updateIndex.bind(this)
+        this.pegaTexto = this.pegaTexto.bind(this)
     }
 
-    /*componentDidMount() {
-        const value = this.state.data[0].value;
-        this.setState({ value });
-    }*/
+    updateIndex (selectedIndex) {
+        this.setState({selectedIndex})
+    }
+
+    operacao() {
+        if(this.state.selectedIndex === 0)
+            this.insercaoLDDE(Number(this.state.texto))
+        else if(this.state.selectedIndex === 1)
+            this.remocaoLDDE(Number(this.state.texto))
+    }
+
+    pegaTexto(textoDoInput) {
+        this.setState({ texto: textoDoInput });
+    }
 
     render(){
+        const buttons = ['Inserir', 'Remover', 'Buscar']
+        const { selectedIndex } = this.state
+
         return(
             <View style={Styles.container}>
-                <View style={Styles.action}>
-                    <Dropdown
-                        value={this.state.label}
-                        data={this.state.data}
-                        pickerStyle={Styles.dropdownPicker}
-                        dropdownOffset={{ 'top': 0 }}
-                        containerStyle = {Styles.dropdown}
-                        textColor = {'#BCCCC2'}
-                        baseColor = {'#BCCCC2'}
-                        itemColor = {'#BCCCC2'}
-                        fontSize = {RFValue(22)}
-                        onChangeText={(value)=> {this.setState({ value });}}
-                    />
-                    <TextInput style={Styles.input}></TextInput>
-                    <TouchableOpacity style = {Styles.okButton}>
-                        <Text style={Styles.okText}>OK</Text>
-                    </TouchableOpacity>
+                <View style ={Styles.actionContainer}>
+                    <View style={Styles.inputBar}>
+                        <TextInput style={Styles.input} onChangeText={this.pegaTexto}></TextInput>
+                        <TouchableOpacity style = {Styles.okButton} onPress={this.operacao}>
+                            <Text style={Styles.okText}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <ButtonGroup
+                            onPress={this.updateIndex}
+                            selectedIndex={selectedIndex}
+                            buttons={buttons}
+                            containerStyle={Styles.buttonsContainer}
+                            buttonStyle={Styles.actionButton}
+                            selectedButtonStyle={Styles.SelectedButton}
+                            textStyle={Styles.okText}
+                        />
                 </View>
+                <View style={Styles.simulationContainer}>
+                    <FlatList 
+                        horizontal
+                        data={this.state.nodeData}
+                        keyExtractor={item => item.index.toString()}
+                        renderItem={({ item }) => {
+                            return (
+                                <No value={item.value} index={item.index}></No>
+                            );
+                          }
+                        }
+                        />
+                </View>
+                <View style={Styles.stepContainer}></View>
             </View>
         );
     }

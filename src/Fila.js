@@ -32,27 +32,4 @@ class Fila{
     limpa(){
         this.inicio = this.fim;
     }
-
-    imprime(){
-        for(let i=this.inicio; i != this.fim; i = (i+1)%(this.tamanhoMax+1)){
-            console.log(this.vetor[i]);
-        }
-    }
 }
-
-//Testes momentâneos
-const f = new Fila(6);
-
-f.enfileira(10);
-f.enfileira(12);
-f.enfileira(13);
-f.enfileira(9);
-f.enfileira(8);
-f.enfileira(17);
-f.desenfileira();
-f.desenfileira();
-f.enfileira(22)
-f.enfileira(67)
-f.limpa();
-
-f.imprime();

@@ -12,7 +12,7 @@ export default StyleSheet.create({
     },
 
     contentContainer: {
-        height: '87%',
+        height: '90%',
         flexDirection: 'column',
         justifyContent: 'flex-start',
         backgroundColor: '#333745',

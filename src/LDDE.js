@@ -1,5 +1,5 @@
 // Cada n? da estrutura possui um valor e os ponteiros para n?s posteriores e anteriores
-class No {
+export default class Node {
     constructor(valor) {
         this.valor = valor;
         this.proximo = null;
@@ -8,7 +8,7 @@ class No {
 }
 
 //Para a estrutura funcionar n?s precisamos ter o tamanho, n? inicial e n? final dela.
-class LDDE {
+export class LDDE {
     constructor() {
         this.tamanho = 0;
         this.inicio = null;
@@ -16,7 +16,7 @@ class LDDE {
     }
 
     insere(valor){
-        let novoNo = new No(valor);
+        let novoNo = new Node(valor);
 
         if(!novoNo)
             return false;
@@ -72,7 +72,6 @@ class LDDE {
         else
             this.inicio = atual.proximo;
         
-
         //Se o pr?ximo existir, significa que o n? a ser exclu?do n?o é o ?ltimo, ent?o o anterior do pr?ximo vira o anterior do atual
         if(atual.prox)
             atual.proximo.anterior = anterior
@@ -94,30 +93,4 @@ class LDDE {
         }
         return -1;
     }
-    
-    imprime(){
-        let temp = this.inicio;
-        for(let i=0; i < this.tamanho; i++){
-            console.log(temp.valor);
-            temp = temp.proximo;
-        }
-    }
 }
-
-//Testes momentâneos
-const l = new LDDE();
-
-l.insere(43);
-l.insere(10);
-l.insere(22);
-l.insere(44);
-l.insere(46);
-
-let a = l.busca(44);
-console.log("Posição: "+ a)
-
-l.imprime();
-
-console.log("Remove agora");
-l.remove(10);
-l.imprime();

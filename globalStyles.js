@@ -26,16 +26,15 @@ export default StyleSheet.create({
 
     linkButton: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
         alignItems: 'center',
-        paddingHorizontal: 20,
-        paddingVertical: 20,
-        
+        paddingHorizontal: "5%",
+        marginBottom: "5%",
     },
 
     linkText: {
         color: '#67AAB8',
-        fontSize: RFValue(17),
-        fontFamily: "OpenSans-Regular",
+        fontSize: RFValue(18),
+        fontFamily: "OpenSans-SemiBold",
     },
 });
