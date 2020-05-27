@@ -15,19 +15,20 @@ export default class simuLDDE extends React.Component{
         this.state = {
             selectedIndex: -1,
             nodeData: [],
-            no: null,
-            noInicial: null,
-            noFinal: null,
+            no: undefined,
+            noInicial: undefined,
+            noFinal: undefined,
             tamanho: 0,
             texto: "",
             textoStep:"Aguardando Operação...",
         }
 
-        this.updateIndex = this.updateIndex.bind(this)
-        this.operacao = this.operacao.bind(this)
-        this.insercaoLDDE = this.insercaoLDDE.bind(this)
-        this.pegaTexto = this.pegaTexto.bind(this)
-        this.remocaoLDDE = this.pegaTexto.bind(this)
+        this.updateIndex = this.updateIndex.bind(this);
+        this.operacao = this.operacao.bind(this);
+        this.insercaoLDDE = this.insercaoLDDE.bind(this);
+        this.pegaTexto = this.pegaTexto.bind(this);
+        this.remocaoLDDE = this.remocaoLDDE.bind(this);
+        this.buscaLDDE = this.buscaLDDE.bind(this);
     }
 
     updateIndex (selectedIndex) {
@@ -57,12 +58,16 @@ export default class simuLDDE extends React.Component{
     }
 
     operacao() {
-        if(this.state.selectedIndex === 0)
-            this.insercaoLDDE(Number(this.state.texto))
-
-        else if(this.state.selectedIndex === 1){
-            this.remocaoLDDE(Number(this.state.texto))
+        if(this.state.selectedIndex === 0){
+            this.insercaoLDDE(Number(this.state.texto));
         }
+        else if(this.state.selectedIndex === 1){
+            this.remocaoLDDE(Number(this.state.texto));
+        }
+        else if(this.state.selectedIndex === 2){
+            this.buscaLDDE(Number(this.state.texto));
+        }
+
     }
 
     pegaTexto(textoDoInput) {
@@ -70,73 +75,200 @@ export default class simuLDDE extends React.Component{
     }
 
     insercaoLDDE(valor){
-        let novoNo = {}
-        let nodeData = this.state.nodeData;
         
-        let atual = this.state.noInicial;
-        let anterior = null;
-        let i = 0
+        let proximo = this.state.noInicial;
+        let anterior = undefined;
+        let i = 0;
 
-        while(atual != null && nodeData[i].value < valor){
-            anterior = atual;
-            atual = nodeData[atual.proximo];
-            i+=1;
+        while(proximo != undefined && proximo.value < valor){
+            anterior = proximo;
+            proximo = proximo.proximo;
+            i = i + 1;
         }
 
-        if(anterior) {        
+        this.setState({tamanho: this.state.tamanho+=1});
+        let novoNo = {index: i, value: valor, anterior: undefined, proximo: undefined};
+
+        if(anterior){
+            novoNo.anterior = anterior;
             anterior.proximo = novoNo;
         }
+
         else
             this.setState({noInicial: novoNo});
 
-        if(atual)
-            atual.anterior = novoNo;
+        if(proximo)
+            proximo.anterior = novoNo;
+
         else
             this.setState({noFinal: novoNo});
-        
-        this.setState({tamanho: this.state.tamanho+=1})
 
-        let No = {index: this.state.tamanho, value: valor, anterior: anterior, proximo: atual}
-        let novoData = [...this.state.nodeData, No]
+        novoNo.proximo = proximo;
+
+        while(proximo !== undefined){
+            proximo.index+=1;
+            proximo = proximo.proximo;
+        }
+        
+        let novoData = [];
+
+        let counter = 0
+
+        while(counter != this.state.tamanho){
+            if (counter == i){
+                novoData = [...novoData, novoNo];
+            }
+
+            else if(counter < i){
+                novoData = [...novoData, this.state.nodeData[counter]];
+            }
+
+            else{
+                novoData = [...novoData, this.state.nodeData[counter - 1]];
+            }
+        
+            counter+=1;
+        }
 
         this.setState({nodeData: novoData});
+        
     }
 
     remocaoLDDE(valor){
-        let atual = this.state.noInicial;
-        let anterior = null;
-        let novoData = this.state.nodeData;
 
-        for(let i = 0; i < this.state.tamanho && nodeData[i].value != valor; i++){
-            anterior = atual;
-            atual = nodeData[atual.proximo];
+        let atual = {};
+        let proximo = this.state.noInicial;
+        let anterior = this.state.noFinal;
+
+        if(valor - this.state.noInicial.value > this.state.noFinal.value - valor){
+            let i = this.state.tamanho - 1;
+
+            while(anterior != undefined && anterior.value > valor){
+                anterior = anterior.anterior;
+                i = i - 1;
+            }
+
+            if(anterior.value != valor){
+                atual = undefined;
+            }
+
+            else{
+                atual = anterior;
+            }
+
         }
 
-        if(anterior)
-            nodeData[atual.anterior].proximo = atual.proximo
+        else{
+            let i = 0;
+
+            while(proximo != undefined && proximo.value < valor){
+                proximo = proximo.proximo;
+                i = i + 1;
+            }
+
+            if(proximo.value != valor){
+                atual = undefined;
+            }
+
+            else{
+                atual = proximo;
+            }
+
+        }
+
+        if (atual == undefined){
+            return;
+        }
+
+        let novoData = [];
+
+        let counter = 0
+
+        while(counter != this.state.tamanho){
+
+            if (this.state.nodeData[counter] === atual){
+                counter+=1;
+                continue;
+            }
+
+            else if(counter < atual.index){
+                novoData = [...novoData, this.state.nodeData[counter]];
+            }
+
+            else{
+                novoData = [...novoData, this.state.nodeData[counter]];
+            }
+
+            counter+=1;
+        }
+
+        console.debug("DEBUGANDO:");
+        console.debug(novoData);
+
+        if(atual.anterior)
+            atual.anterior.proximo = atual.proximo;
+        
         else
             this.state.noInicial = atual.proximo;
         
-        if(atual.proximo != 0)
-            nodeData[atual.proximo].anterior = anterior
+        if(atual.proximo)
+            atual.proximo.anterior = atual.anterior;
+        
         else
-            this.state.noFinal = anterior;
-
-        this.setState({tamanho: this.state.tamanho-=1});
-
-        for (let i =0; i < novoData.length; i++){
-            if (novoData[i].valor === atual.valor) {
-                novoData.splice(i,1);
-                break;
-            }
+            this.state.noFinal = atual.anterior;
+        
+        while(atual !== undefined){
+            atual.index-=1;
+            atual = atual.proximo;
         }
 
+        this.setState({tamanho: this.state.tamanho-=1});
         this.setState({nodeData: novoData});
+
+    }
+
+    buscaLDDE(valor){
+        if(valor - this.state.noInicial.value > this.state.noFinal.value - valor){
+            let anterior = this.state.noFinal;
+            let i = this.state.tamanho - 1;
+
+            while(anterior != undefined && anterior.value > valor){
+                anterior = anterior.anterior;
+                i = i - 1;
+            }
+
+            if(anterior.value != valor){
+                alert("VOCÊ É CORNO");
+            }
+
+            else{
+                alert("NÓ ENCONTRADO (DA DIREITA PARA ESQUERDA) NA POSIÇÃO " + String(i));
+            }
+
+        }
+        else{
+            let proximo = this.state.noInicial;
+            let i = 0;
+
+            while(proximo != undefined && proximo.value < valor){
+                proximo = proximo.proximo;
+                i = i + 1;
+            }
+
+            if(proximo.value != valor){
+                alert("VOCÊ É CORNO");
+            }
+
+            else{
+                alert("NÓ ENCONTRADO (DA ESQUERDA PARA DIREITA) NA POSIÇÃO " + String(i));
+            }
+
+        }
     }
 
     render(){
         const buttons = ['Inserir', 'Remover', 'Buscar']
-        const { selectedIndex } = this.state
+        const { selectedIndex } = this.state;
 
         return(
             <View style={Styles.container}>
