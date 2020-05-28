@@ -18,6 +18,7 @@ export default class simuFila extends React.Component{
             selectedIndex: -1,
             textoStep:"Aguardando Operação...",
             texto: "",
+            edit: true,
         }
 
         this.updateIndex = this.updateIndex.bind(this);
@@ -36,26 +37,26 @@ export default class simuFila extends React.Component{
                 "IMPORTANTE: Primeiro é necessário criar uma fila antes de inserir qualquer valor.\n\n" +
                 "1.Passo: Inserir um valor na caixa de texto e confirmar com o botão de \"Ok\" para inserir na fila.\n\n" + 
                 "2.Passo: Se a fila estiver cheia, não será possível inserir até que você remova pelo menos um elemento da fila."
-            });
+                , edit: true});
         }
         else if(selectedIndex === 1){
             this.setState({textoStep:
                 "1.Passo: Limpa a posição inicial, removendo seu índice e valor.\n\n" + 
                 "2.Passo: Avança a posição inicial para o próximo item da fila.\n\n" +
                 "3.Passo: Organiza todos os índices da fila."
-            });
+                , edit: false, texto: ""});
         }
         else if(selectedIndex === 2){
             this.setState({textoStep:
                 "1.Passo: Vai \"desenfileirando\" a fila até encontrar o valor que busca.\n\n" + 
                 "2.Passo: Ao encontrar, retorna o valor e o índice do mesmo."
-            });
+                , edit: true});
         }
         else if(selectedIndex === 3){
             this.setState({textoStep:
                 "1.Passo: Determina quantos elementos existirão da fila, sendo no total o valor introduzido + 1 para ter sobra para o sentinela.\n\n" + 
                 "2.Passo: Preenche a fila inteira para ela ficar vazia. Dessa forma é possível visualiza-la."
-            });
+                , edit: true});
         }
         this.setState({selectedIndex})
     }
@@ -135,7 +136,7 @@ export default class simuFila extends React.Component{
 
         while(tempI != this.state.f){
             if(this.state.v[tempI].value == valor){
-                alert(String(valor) + " ENCONTRADO NO INDEX " + String(tempI) + " DA FILA. ");
+                alert(String(valor) + " ENCONTRADO NO INDEX " + String(this.state.v[tempI].index) + " DA FILA. ");
                 return;
             }
             tempI = (tempI+1) % (this.state.max);
@@ -156,7 +157,7 @@ export default class simuFila extends React.Component{
             <View style={Styles.container}>
                 <View style ={Styles.actionContainer}>
                     <View style={Styles.inputBar}>
-                        <TextInput style={Styles.input} onChangeText={this.pegaTexto}></TextInput>
+                    <TextInput style={Styles.input} onChangeText={this.pegaTexto} editable={this.state.edit} value = {this.state.texto}></TextInput>
                         <TouchableOpacity style = {Styles.okButton} onPress={this.operacao}>
                             <Text style={Styles.okText}>OK</Text>
                         </TouchableOpacity>

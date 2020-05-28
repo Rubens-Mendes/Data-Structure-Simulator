@@ -16,6 +16,7 @@ export default StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         backgroundColor: '#333745',
+        alignItems: 'center',
     },
 
     imgDesc: {
@@ -37,5 +38,11 @@ export default StyleSheet.create({
         textAlign: 'left',
         fontFamily: "OpenSans-Regular",
         paddingHorizontal: '5%',
+    },
+
+    imgContainerTuto: {
+        width: "90%",
+        alignSelf: 'center',
+        paddingVertical: '2%',
     },
 });

@@ -5,7 +5,8 @@ import { createStackNavigator} from '@react-navigation/stack';
 const AppStack = createStackNavigator();
 
 import Home from './pages/Home';
-import Info from './pages/Info';
+import Info from './pages/Info/Information';
+import Tuto from './pages/Info/Tuto';
 import SimuLDDE from './pages/Simulacoes/SimuLDDE'
 import SimuFila from './pages/Simulacoes/SimuFila'
 import globalStyles from '../globalStyles';
@@ -31,6 +32,14 @@ export default function Routes() {
                   }}
             >
                 <AppStack.Screen name="Home" component={Home} options={{ title: 'Home' }}/>
+                <AppStack.Screen name = "Tutorial" component={Tuto} options={{ 
+                        title: 'Tutorial',
+                        headerRight:()=>(
+                            <TouchableOpacity onPress={()=> ref.current?.navigate('Home')}>
+                                <Feather style={globalStyles.homeIcon} name="home" size={30}/>
+                            </TouchableOpacity>
+                            )
+                    }}/>
                 <AppStack.Screen name = "Info" component={Info} options={{ 
                         title: 'Info',
                         headerRight:()=>(
