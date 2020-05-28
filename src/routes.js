@@ -5,8 +5,8 @@ import { createStackNavigator} from '@react-navigation/stack';
 const AppStack = createStackNavigator();
 
 import Home from './pages/Home';
-import Tuto from './pages/Tuto';
-import Info from './pages/Info';
+import Tuto from './pages/Info/Tuto';
+import Info from './pages/Info/Info';
 import SimuLDDE from './pages/Simulacoes/SimuLDDE'
 import SimuFila from './pages/Simulacoes/SimuFila'
 import globalStyles from '../globalStyles';
@@ -49,7 +49,7 @@ export default function Routes() {
                             </TouchableOpacity>
                             )
                     }}/>
-                <AppStack.Screen name = "SimuLDDE" component={SimuLDDE} options={{ 
+                <AppStack.Screen name = "Simulaç?o LDDE" component={SimuLDDE} options={{ 
                         title: 'SimuLDDE',
                         headerRight:()=>(
                             <TouchableOpacity onPress={()=> ref.current?.navigate('Home')}>
@@ -57,7 +57,7 @@ export default function Routes() {
                             </TouchableOpacity>
                             )
                     }}/>
-                <AppStack.Screen name = "SimuFila" component={SimuFila} options={{ 
+                <AppStack.Screen name = "Simulaç?o Fila" component={SimuFila} options={{ 
                         title: 'SimuFila',
                         headerRight:()=>(
                             <TouchableOpacity onPress={()=> ref.current?.navigate('Home')}>

@@ -30,20 +30,15 @@ export class LDDE {
         }
 
         if(anterior) {
-            //O ponteiro anterior aponta para o novo
             anterior.proximo = novoNo;
-            //O novo aponta para o anterior
             novoNo.anterior = anterior;
         }
-        //Se n?o houver anteriores, o novo n?mero ser? o primeiro.
         else
             this.inicio = novoNo;
 
         if(atual)
-            //Como atual é o primeiro n?mero maior que o n?mero novo, significa que o anterior vira o novo n?.
             atual.anterior = novoNo;
         else{
-            //Sen?o significa que o novo n? é o ?ltimo.
             this.fim = novoNo;
         }
         novoNo.proximo = atual;

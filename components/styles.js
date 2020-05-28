@@ -48,4 +48,12 @@ export default StyleSheet.create({
         paddingHorizontal: '4%',
         paddingVertical: '2%',
     },
+    
+    vetor:{
+        borderColor: "#BCCCC2",
+        borderWidth: 3,
+        width: windowWidth*0.2,
+        height: windowHeight*0.1,
+        justifyContent: 'center',
+    },
 });

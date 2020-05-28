@@ -6,7 +6,6 @@ import Styles from '../styles';
 
 import No from '../../../../components/No';
 import StepContainer from '../../../../components/StepContainer'
-import {Node} from '../../../LDDE';
 
 export default class simuLDDE extends React.Component{
     constructor(props){
@@ -58,16 +57,20 @@ export default class simuLDDE extends React.Component{
     }
 
     operacao() {
-        if(this.state.selectedIndex === 0){
-            this.insercaoLDDE(Number(this.state.texto));
+        if(!isNaN(Number(this.state.texto))){
+            if(this.state.selectedIndex === 0){
+                this.insercaoLDDE(Number(this.state.texto));
+            }
+            else if(this.state.selectedIndex === 1){
+                this.remocaoLDDE(Number(this.state.texto));
+            }
+            else if(this.state.selectedIndex === 2){
+                this.buscaLDDE(Number(this.state.texto));
+            }
         }
-        else if(this.state.selectedIndex === 1){
-            this.remocaoLDDE(Number(this.state.texto));
+        else{
+            alert("Por favor, insira um número.")
         }
-        else if(this.state.selectedIndex === 2){
-            this.buscaLDDE(Number(this.state.texto));
-        }
-
     }
 
     pegaTexto(textoDoInput) {
@@ -135,7 +138,6 @@ export default class simuLDDE extends React.Component{
     }
 
     remocaoLDDE(valor){
-
         let atual = {};
         let proximo = this.state.noInicial;
         let anterior = this.state.noFinal;
@@ -151,13 +153,11 @@ export default class simuLDDE extends React.Component{
             if(anterior.value != valor){
                 atual = undefined;
             }
-
             else{
                 atual = anterior;
             }
 
         }
-
         else{
             let i = 0;
 
@@ -165,23 +165,18 @@ export default class simuLDDE extends React.Component{
                 proximo = proximo.proximo;
                 i = i + 1;
             }
-
             if(proximo.value != valor){
                 atual = undefined;
             }
-
             else{
                 atual = proximo;
             }
-
         }
 
         if (atual == undefined){
             return;
         }
-
         let novoData = [];
-
         let counter = 0
 
         while(counter != this.state.tamanho){
@@ -190,11 +185,9 @@ export default class simuLDDE extends React.Component{
                 counter+=1;
                 continue;
             }
-
             else if(counter < atual.index){
                 novoData = [...novoData, this.state.nodeData[counter]];
             }
-
             else{
                 novoData = [...novoData, this.state.nodeData[counter]];
             }
@@ -202,18 +195,12 @@ export default class simuLDDE extends React.Component{
             counter+=1;
         }
 
-        console.debug("DEBUGANDO:");
-        console.debug(novoData);
-
         if(atual.anterior)
             atual.anterior.proximo = atual.proximo;
-        
         else
             this.state.noInicial = atual.proximo;
-        
         if(atual.proximo)
             atual.proximo.anterior = atual.anterior;
-        
         else
             this.state.noFinal = atual.anterior;
         
@@ -224,7 +211,6 @@ export default class simuLDDE extends React.Component{
 
         this.setState({tamanho: this.state.tamanho-=1});
         this.setState({nodeData: novoData});
-
     }
 
     buscaLDDE(valor){
@@ -238,7 +224,7 @@ export default class simuLDDE extends React.Component{
             }
 
             if(anterior.value != valor){
-                alert("VOCÊ É CORNO");
+                alert("VALOR NÃO ENCONTRADO");
             }
 
             else{
@@ -256,7 +242,7 @@ export default class simuLDDE extends React.Component{
             }
 
             if(proximo.value != valor){
-                alert("VOCÊ É CORNO");
+                alert("VALOR NÃO ENCONTRADO");
             }
 
             else{
