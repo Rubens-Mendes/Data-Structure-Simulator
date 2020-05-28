@@ -5,8 +5,7 @@ import { createStackNavigator} from '@react-navigation/stack';
 const AppStack = createStackNavigator();
 
 import Home from './pages/Home';
-import Tuto from './pages/Info/Tuto';
-import Info from './pages/Info/Info';
+import Info from './pages/Info';
 import SimuLDDE from './pages/Simulacoes/SimuLDDE'
 import SimuFila from './pages/Simulacoes/SimuFila'
 import globalStyles from '../globalStyles';
@@ -32,15 +31,6 @@ export default function Routes() {
                   }}
             >
                 <AppStack.Screen name="Home" component={Home} options={{ title: 'Home' }}/>
-                <AppStack.Screen name = "Tutorial" component={Tuto} 
-                    options={{ 
-                        title: 'Tutorial',
-                        headerRight:()=>(
-                            <TouchableOpacity onPress={()=> ref.current?.navigate('Home')}>
-                                <Feather style={globalStyles.homeIcon} name="home" size={30}/>
-                            </TouchableOpacity>
-                            )
-                    }}/>
                 <AppStack.Screen name = "Info" component={Info} options={{ 
                         title: 'Info',
                         headerRight:()=>(
@@ -49,16 +39,16 @@ export default function Routes() {
                             </TouchableOpacity>
                             )
                     }}/>
-                <AppStack.Screen name = "Simula�?o LDDE" component={SimuLDDE} options={{ 
-                        title: 'SimuLDDE',
+                <AppStack.Screen name = "SimuLDDE" component={SimuLDDE} options={{ 
+                        title: 'Simulação LDDE',
                         headerRight:()=>(
                             <TouchableOpacity onPress={()=> ref.current?.navigate('Home')}>
                                 <Feather style={globalStyles.homeIcon} name="home" size={30}/>
                             </TouchableOpacity>
                             )
                     }}/>
-                <AppStack.Screen name = "Simula�?o Fila" component={SimuFila} options={{ 
-                        title: 'SimuFila',
+                <AppStack.Screen name = "SimuFila" component={SimuFila} options={{ 
+                        title: 'Simulação Fila',
                         headerRight:()=>(
                             <TouchableOpacity onPress={()=> ref.current?.navigate('Home')}>
                                 <Feather style={globalStyles.homeIcon} name="home" size={30}/>
